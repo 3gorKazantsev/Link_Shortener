@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @Entity
 @Table(name = "redirects")
 public class Redirect extends BaseEntity {

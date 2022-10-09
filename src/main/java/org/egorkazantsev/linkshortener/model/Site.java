@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @Entity
 @Table(name = "sites")
 public class Site extends BaseEntity{

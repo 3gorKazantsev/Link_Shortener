@@ -18,27 +18,23 @@ public class UserLinkController {
         this.linkService = linkService;
     }
 
-    @PostMapping("/{full_link}")
-    public Link createShortLink(@PathVariable("full_link") String fullLink) {
+    @PostMapping
+    public Link createShortLink(@RequestBody String fullLink) {
         return linkService.createShortLink(fullLink);
     }
 
     @GetMapping
     public List<Link> getAllUserLinks() {
+        return linkService.getAllUserLinks();
+    }
+
+    @GetMapping("/info")
+    public Link getLinkInfoByName(@RequestBody String shortLink) {
         return null;
     }
 
-    @GetMapping("/info/{short_link}")
-    public Link getLinkInfoByName(
-            @PathVariable("short_link") String shortLink
-    ) {
-        return null;
-    }
-
-    @DeleteMapping("/{short_link}")
-    public void deleteLinkByName(
-            @PathVariable("short_link") String shortLink
-    ) {
-
+    @DeleteMapping
+    public void deleteLinkByName(@RequestBody String shortLink) {
+        linkService.deleteLink(shortLink);
     }
 }

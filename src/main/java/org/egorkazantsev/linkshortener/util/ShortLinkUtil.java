@@ -1,12 +1,20 @@
 package org.egorkazantsev.linkshortener.util;
 
-public class Util {
 
-    private static final char[] base62Alphabet =
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ShortLinkUtil {
+
+    private final char[] base62Alphabet =
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
 
+    @Value("${application.url}")
+    private String url;
+
     // mapping number (base 10) to string (base 62)
-    public static String mapBase10ToBase62(long number) {
+    public String mapBase10ToBase62(long number) {
         StringBuilder result = new StringBuilder();
 
         long remainder;
@@ -18,5 +26,9 @@ public class Util {
         }
 
         return result.toString();
+    }
+
+    public String createShortLink(String shortName) {
+        return url + shortName;
     }
 }

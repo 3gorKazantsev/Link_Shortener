@@ -11,4 +11,10 @@ import java.util.List;
 public interface LinkRepo extends JpaRepository<Link, Long> {
 
     List<Link> findAllByUser(User user);
+
+    Link findByShortLink(String shortLink);
+
+    Link findByShortName(String shortName);
+
+
 }
