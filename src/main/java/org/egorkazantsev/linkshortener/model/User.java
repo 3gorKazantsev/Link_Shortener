@@ -1,17 +1,20 @@
 package org.egorkazantsev.linkshortener.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -22,6 +25,7 @@ public class User extends BaseEntity {
     @Column(name = "last_name")
     private String lastName;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
@@ -29,4 +33,15 @@ public class User extends BaseEntity {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
     private Set<Role> roles;
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + getId() + ", " +
+                "createdAt = " + getCreatedAt() + ", " +
+                "username = " + getUsername() + ", " +
+                "password = " + getPassword() + ", " +
+                "firstName = " + getFirstName() + ", " +
+                "lastName = " + getLastName() + ")";
+    }
 }

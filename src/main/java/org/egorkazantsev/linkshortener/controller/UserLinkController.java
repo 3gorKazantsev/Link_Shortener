@@ -1,6 +1,8 @@
 package org.egorkazantsev.linkshortener.controller;
 
 import org.egorkazantsev.linkshortener.model.Link;
+import org.egorkazantsev.linkshortener.service.LinkService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,11 +11,16 @@ import java.util.List;
 @RequestMapping("/api/link")
 public class UserLinkController {
 
-    @PostMapping("/{long_link}")
-    public Link createShortLink(
-            @PathVariable("long_link") String longLink
-    ) {
-        return null;
+    private final LinkService linkService;
+
+    @Autowired
+    public UserLinkController(LinkService linkService) {
+        this.linkService = linkService;
+    }
+
+    @PostMapping("/{full_link}")
+    public Link createShortLink(@PathVariable("full_link") String fullLink) {
+        return linkService.createShortLink(fullLink);
     }
 
     @GetMapping

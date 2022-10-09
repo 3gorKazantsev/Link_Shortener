@@ -1,12 +1,16 @@
 package org.egorkazantsev.linkshortener.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
+@ToString
 @MappedSuperclass
 public abstract class BaseEntity {
 
@@ -16,5 +20,5 @@ public abstract class BaseEntity {
 
     @CreatedDate
     @Column(name = "created_at")
-    private Date createdAt;
+    private Date createdAt = new Date();
 }

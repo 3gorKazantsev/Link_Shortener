@@ -1,10 +1,14 @@
 package org.egorkazantsev.linkshortener.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "links")
 public class Link extends BaseEntity{

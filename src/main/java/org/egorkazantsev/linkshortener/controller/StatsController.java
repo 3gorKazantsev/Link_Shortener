@@ -11,9 +11,10 @@ import java.util.List;
 @RequestMapping("/api/stats")
 public class StatsController {
 
-    /* @GetMapping method
-    получение временного графика количества переходов
-    с группировкой по дням, часам, минутам */
+    @GetMapping
+    public String getGraph() {
+        return null;
+    }
 
     @GetMapping("/top20")
     public List<Site> getTop20Sites() {

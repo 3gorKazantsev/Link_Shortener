@@ -2,6 +2,9 @@ server:
   port: 8081
 
 spring:
+  output:
+    ansi:
+      enabled: always
   datasource:
     url: jdbc:postgresql://localhost:5432/link_shortener
     username: postgres
@@ -11,3 +14,6 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: create-drop
+  security:
+    user:
+      password: 1234
