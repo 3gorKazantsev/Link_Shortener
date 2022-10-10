@@ -15,9 +15,9 @@ import javax.persistence.Table;
 @Table(name = "sites")
 public class Site extends BaseEntity{
 
-    @Column(name = "site_name")
-    private String siteName;
+    @Column(name = "domain")
+    private String domain;
 
     @Column(name = "created_count")
-    private Long createdCount;
+    private Long createdCount = 0L;
 }

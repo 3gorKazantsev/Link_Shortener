@@ -1,6 +1,7 @@
 package org.egorkazantsev.linkshortener.controller;
 
 import org.egorkazantsev.linkshortener.model.Link;
+import org.egorkazantsev.linkshortener.model.projection.LinkInfoProjection;
 import org.egorkazantsev.linkshortener.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +30,12 @@ public class UserLinkController {
     }
 
     @GetMapping("/info")
-    public Link getLinkInfoByName(@RequestBody String shortLink) {
-        return null;
+    public LinkInfoProjection getLinkInfoByShortLink(@RequestBody String shortLink) {
+        return linkService.getLinkInfo(shortLink);
     }
 
     @DeleteMapping
-    public void deleteLinkByName(@RequestBody String shortLink) {
+    public void deleteLinkByShortLink(@RequestBody String shortLink) {
         linkService.deleteLink(shortLink);
     }
 }

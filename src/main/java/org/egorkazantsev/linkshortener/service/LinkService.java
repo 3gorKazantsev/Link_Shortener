@@ -1,7 +1,7 @@
 package org.egorkazantsev.linkshortener.service;
 
-import org.egorkazantsev.linkshortener.dto.LinkInfoDto;
 import org.egorkazantsev.linkshortener.model.Link;
+import org.egorkazantsev.linkshortener.model.projection.LinkInfoProjection;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public interface LinkService {
 
     List<Link> getAllUserLinks();
 
-    LinkInfoDto getLinkInfo(String shortLink);
+    LinkInfoProjection getLinkInfo(String shortLink);
 
     void deleteLink(String shortLink);
 
