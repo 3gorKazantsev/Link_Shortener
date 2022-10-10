@@ -6,7 +6,7 @@ public interface LinkInfoProjection {
 
     Long getId();
     Date getCreatedAt();
-    String getFullLink();
-    String getShortLink();
+    String getFullUrl();
+    String getShortUrl();
     Integer getRedirectCount();
 }

@@ -11,7 +11,7 @@ import org.egorkazantsev.linkshortener.repository.RedirectRepo;
 import org.egorkazantsev.linkshortener.repository.SiteRepo;
 import org.egorkazantsev.linkshortener.repository.UserRepo;
 import org.egorkazantsev.linkshortener.service.LinkService;
-import org.egorkazantsev.linkshortener.util.ShortLinkUtil;
+import org.egorkazantsev.linkshortener.util.ShortUrlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,30 +27,30 @@ public class LinkServiceImpl implements LinkService {
     private final UserRepo userRepo;
     private final RedirectRepo redirectRepo;
     private final SiteRepo siteRepo;
-    private final ShortLinkUtil shortLinkUtil;
+    private final ShortUrlUtil shortUrlUtil;
 
     @Autowired
-    public LinkServiceImpl(LinkRepo linkRepo, UserRepo userRepo, RedirectRepo redirectRepo, SiteRepo siteRepo, ShortLinkUtil shortLinkUtil) {
+    public LinkServiceImpl(LinkRepo linkRepo, UserRepo userRepo, RedirectRepo redirectRepo, SiteRepo siteRepo, ShortUrlUtil shortUrlUtil) {
         this.linkRepo = linkRepo;
         this.userRepo = userRepo;
         this.redirectRepo = redirectRepo;
         this.siteRepo = siteRepo;
-        this.shortLinkUtil = shortLinkUtil;
+        this.shortUrlUtil = shortUrlUtil;
     }
 
     @Override
-    public Link createShortLink(String fullLink) {
+    public Link createShortLink(String fullUrl) {
         // TODO some operation to get currently authorized user
         User currentUser = userRepo.findByUsername("admin");
 
-        // TODO if fullLink is an absolute URL -> OK : else normalize to absolute URL (add schema)
+        // TODO if fullUrl is an absolute URL -> OK : else normalize to absolute URL (add schema)
 
         // full link's domain
         String domain = "";
 
         try {
             // attempt to get a domain by full link
-            URI uri = new URI(fullLink);
+            URI uri = new URI(fullUrl);
             domain = uri.getHost();
             domain = domain.startsWith("www.") ? domain.substring(4) : domain;
         } catch (URISyntaxException e) {
@@ -76,14 +76,14 @@ public class LinkServiceImpl implements LinkService {
             linkRepo.save(link);
 
             // creating short link via converting id to base62
-            String shortName = shortLinkUtil.mapBase10ToBase62(link.getId());
-            String shortLink = shortLinkUtil.createShortLink(shortName);
+            String shortName = shortUrlUtil.mapBase10ToBase62(link.getId());
+            String shortUrl = shortUrlUtil.createShortUrl(shortName);
 
             // setting link properties
-            link.setFullLink(fullLink);
+            link.setFullUrl(fullUrl);
             link.setShortName(shortName);
             link.setUser(currentUser);
-            link.setShortLink(shortLink);
+            link.setShortUrl(shortUrl);
 
             linkRepo.save(link);
 
@@ -110,11 +110,11 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public LinkInfoProjection getLinkInfo(String shortLink) {
+    public LinkInfoProjection getLinkInfo(String shortUrl) {
         // TODO some operation to check the owner of link
         User currentUser = userRepo.findByUsername("admin");
 
-        LinkInfoProjection linkInfo = linkRepo.getLinkInfoByShortLink(shortLink);
+        LinkInfoProjection linkInfo = linkRepo.getLinkInfoByShortUrl(shortUrl);
 
         log.info("IN getLinkInfo - LinkInfoDto: {} successfully returned", linkInfo);
 
@@ -122,11 +122,11 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public void deleteLink(String shortLink) {
+    public void deleteLink(String shortUrl) {
         // TODO some operation to check the owner of link
         User currentUser = userRepo.findByUsername("admin");
 
-        Link linkToDelete = linkRepo.findByShortLink(shortLink);
+        Link linkToDelete = linkRepo.findByShortUrl(shortUrl);
 
         linkRepo.delete(linkToDelete);
 
@@ -134,7 +134,7 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public String getFullLinkAndPrepareRedirectByShortName(String shortName) {
+    public String getFullUrlAndPrepareRedirectByShortName(String shortName) {
         // finding link by its short name
         Link link = linkRepo.findByShortName(shortName);
 
@@ -143,10 +143,10 @@ public class LinkServiceImpl implements LinkService {
         redirect.setLink(link);
         redirectRepo.save(redirect);
 
-        log.info("IN prepareRedirectByShortLink - Redirect: {} successfully saved", redirect);
+        log.info("IN getFullUrlAndPrepareRedirectByShortName - Redirect: {} successfully saved", redirect);
 
-        log.info("IN prepareRedirectByShortLink - Link's full link: {} successfully returned", link);
+        log.info("IN getFullUrlAndPrepareRedirectByShortName - Link's full link: {} successfully returned", link);
 
-        return link.getFullLink();
+        return link.getFullUrl();
     }
 }

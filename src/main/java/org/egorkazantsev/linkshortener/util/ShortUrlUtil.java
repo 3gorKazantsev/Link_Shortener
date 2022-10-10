@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ShortLinkUtil {
+public class ShortUrlUtil {
 
     private final char[] base62Alphabet =
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
@@ -28,7 +28,7 @@ public class ShortLinkUtil {
         return result.toString();
     }
 
-    public String createShortLink(String shortName) {
+    public String createShortUrl(String shortName) {
         return url + shortName;
     }
 }

@@ -15,11 +15,11 @@ public interface LinkRepo extends JpaRepository<Link, Long> {
 
     List<Link> findAllByUser(User user);
 
-    Link findByShortLink(String shortLink);
+    Link findByShortUrl(String shortUrl);
 
     Link findByShortName(String shortName);
 
-    @Query(value = "select l.id as \"id\", l.created_at as \"createdAt\", l.full_link as \"fullLink\", l.short_link as \"shortLink\", count(all r) as \"redirectCount\" from redirects r right join links l on r.link_id = l.id where l.short_link = :shortLink group by l.id;",
+    @Query(value = "select l.id as \"id\", l.created_at as \"createdAt\", l.full_url as \"fullUrl\", l.short_url as \"shortUrl\", count(all r) as \"redirectCount\" from redirects r right join links l on r.link_id = l.id where l.short_url = :shortUrl group by l.id;",
             nativeQuery = true)
-    LinkInfoProjection getLinkInfoByShortLink(@Param("shortLink") String shortLink);
+    LinkInfoProjection getLinkInfoByShortUrl(@Param("shortUrl") String shortUrl);
 }

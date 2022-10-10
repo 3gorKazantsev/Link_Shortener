@@ -30,12 +30,12 @@ public class UserLinkController {
     }
 
     @GetMapping("/info")
-    public LinkInfoProjection getLinkInfoByShortLink(@RequestBody String shortLink) {
-        return linkService.getLinkInfo(shortLink);
+    public LinkInfoProjection getLinkInfoByShortUrl(@RequestBody String shortUrl) {
+        return linkService.getLinkInfo(shortUrl);
     }
 
     @DeleteMapping
-    public void deleteLinkByShortLink(@RequestBody String shortLink) {
-        linkService.deleteLink(shortLink);
+    public void deleteLinkByShortUrl(@RequestBody String shortUrl) {
+        linkService.deleteLink(shortUrl);
     }
 }

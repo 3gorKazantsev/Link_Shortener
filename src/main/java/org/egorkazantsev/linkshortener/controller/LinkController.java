@@ -21,7 +21,7 @@ public class LinkController {
 
     @GetMapping("/{short_name}")
     public RedirectView redirectShorLink(@PathVariable("short_name") String shortName) {
-        String url = linkService.getFullLinkAndPrepareRedirectByShortName(shortName);
+        String url = linkService.getFullUrlAndPrepareRedirectByShortName(shortName);
 
         return new RedirectView(url);
     }

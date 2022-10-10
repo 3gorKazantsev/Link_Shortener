@@ -11,9 +11,9 @@ public interface LinkService {
 
     List<Link> getAllUserLinks();
 
-    LinkInfoProjection getLinkInfo(String shortLink);
+    LinkInfoProjection getLinkInfo(String shortUrl);
 
-    void deleteLink(String shortLink);
+    void deleteLink(String shortUrl);
 
-    String getFullLinkAndPrepareRedirectByShortName(String shortName);
+    String getFullUrlAndPrepareRedirectByShortName(String shortName);
 }

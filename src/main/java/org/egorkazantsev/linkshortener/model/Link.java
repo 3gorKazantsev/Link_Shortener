@@ -13,14 +13,14 @@ import javax.persistence.*;
 @Table(name = "links")
 public class Link extends BaseEntity{
 
-    @Column(name = "full_link")
-    private String fullLink;
+    @Column(name = "full_url")
+    private String fullUrl;
 
     @Column(name = "short_name")
     private String shortName;
 
-    @Column(name = "short_link")
-    private String shortLink;
+    @Column(name = "short_url")
+    private String shortUrl;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
