@@ -2,13 +2,12 @@ package org.egorkazantsev.linkshortener.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Getter
 @Setter
-@ToString(callSuper = true)
 @Entity
 @Table(name = "links")
 public class Link extends BaseEntity{
@@ -25,4 +24,18 @@ public class Link extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "link", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Redirect> redirects;
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + getId() + ", " +
+                "createdAt = " + getCreatedAt() + ", " +
+                "fullUrl = " + getFullUrl() + ", " +
+                "shortName = " + getShortName() + ", " +
+                "shortUrl = " + getShortUrl() + ", " +
+                "user = " + getUser() + ")";
+    }
 }

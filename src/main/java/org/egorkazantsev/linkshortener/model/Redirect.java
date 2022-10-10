@@ -14,6 +14,5 @@ import javax.persistence.*;
 public class Redirect extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "link_id")
     private Link link;
 }
