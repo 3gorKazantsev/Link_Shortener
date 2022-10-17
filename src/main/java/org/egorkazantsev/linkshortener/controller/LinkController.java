@@ -6,10 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/link")
 public class LinkController {
 
     private final LinkService linkService;
@@ -20,9 +19,14 @@ public class LinkController {
     }
 
     @GetMapping("/{short_name}")
-    public RedirectView redirectShorLink(@PathVariable("short_name") String shortName) {
+    public String redirectShorLink(@PathVariable("short_name") String shortName) {
+
         String url = linkService.getFullUrlAndPrepareRedirectByShortName(shortName);
 
-        return new RedirectView(url);
+        /* exec redirect
+        return new RedirectView(url);*/
+
+        // return full URL
+        return url;
     }
 }

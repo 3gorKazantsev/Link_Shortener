@@ -77,7 +77,7 @@ public class LinkServiceImpl implements LinkService {
 
             // creating short link via converting id to base62
             String shortName = shortUrlUtil.mapBase10ToBase62(link.getId());
-            String shortUrl = shortUrlUtil.createShortUrl(shortName);
+            String shortUrl = shortUrlUtil.createApiShortUrl(shortName);
 
             // setting link properties
             link.setFullUrl(fullUrl);

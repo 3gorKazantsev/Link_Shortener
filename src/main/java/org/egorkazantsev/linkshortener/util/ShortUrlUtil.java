@@ -28,7 +28,7 @@ public class ShortUrlUtil {
         return result.toString();
     }
 
-    public String createShortUrl(String shortName) {
-        return url + shortName;
+    public String createApiShortUrl(String shortName) {
+        return url + "api/link/" + shortName;
     }
 }

@@ -1,5 +1,6 @@
 package org.egorkazantsev.linkshortener.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,7 @@ public class Link extends BaseEntity{
     @Column(name = "short_url")
     private String shortUrl;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
