@@ -28,6 +28,7 @@ public class Link extends BaseEntity{
     private User user;
 
     @OneToMany(mappedBy = "link", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Collection<Redirect> redirects;
 
     @Override

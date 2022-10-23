@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,6 +13,7 @@ import java.util.Set;
 @Table(name = "users")
 public class User extends BaseEntity {
 
+    // TODO make column uniq
     @Column(name = "username")
     private String username;
 
@@ -25,6 +26,9 @@ public class User extends BaseEntity {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "is_active")
+    private boolean isActive;
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -32,7 +36,7 @@ public class User extends BaseEntity {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
-    private Set<Role> roles;
+    private List<Role> roles;
 
     @Override
     public String toString() {
